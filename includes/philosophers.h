@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:19 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/07 16:30:22 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:15:35 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@
 
 typedef struct s_table
 {
-	int	nb_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	how_many_eat;
+	int			nb_philo;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			how_many_eat;
+	t_philo		*philos;
+	t_forks		*forks;
+	pthread_t	monitor;
 }	t_table;
 
 typedef struct s_fork
@@ -44,7 +47,6 @@ typedef struct s_philo
 	t_fork				*left_fork;
 	t_fork				*right_fork;
 	t_table				*table;
-	struct s_philo		*next;
 }	t_philo;
 
 
