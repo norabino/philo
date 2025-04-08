@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:14:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:29:35 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:38:55 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,6 @@ int	ft_init_philos(t_table *table)
 	}
 	return (1);
 }
-
-//t_table	*ft_init(char **av)
-//{
-//	t_table	table;
-
-//	ft_init_table(&table, av);
-//	if (!ft_init_forks(&table) || !ft_init_philos(&table))
-//		return (printf("error malloc philo ou fork"), NULL);
-//	printf("nbphilo = %d\ntime to die = %d\ntime to eat = %d\ntime to sleep = %d\nhowmanyeat = %d\n", table.nb_philo, table.time_to_die, table.time_to_eat, table.time_to_sleep, table.how_many_eat);
-//	return (&table);
-//}
 
 t_table	*ft_init(char **av)
 {
