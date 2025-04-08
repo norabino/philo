@@ -1,49 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_end_simulation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 14:21:33 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/03 14:30:04 by norabino         ###   ########.fr       */
+/*   Created: 2025/04/08 16:16:20 by norabino          #+#    #+#             */
+/*   Updated: 2025/04/08 16:18:43 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	ft_isdigit(char c)
+void	ft_end_simulation(t_table *table)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
+	int	i;
 
-int	ft_atoi(const char *nptr)
-{
-	int		res;
-	int		sign;
-	int		i;
-	char	*str;
-
-	str = (char *)nptr;
 	i = 0;
-	sign = 1;
-	res = 0;
-	while ((str[i] == 32) || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (i < table->nb_philo)
 	{
-		if (str[i] == '-')
-			sign = -sign;
+		pthread_join(table->philos[i].id_thread, NULL);
 		i++;
 	}
-	if (!ft_isdigit(str[i]))
-		return (0);
-	while (ft_isdigit(str[i]))
+	pthread_join(table->monitor, NULL);
+	while (i < table->nb_philo)
 	{
-		res = res * 10 + str[i] - '0';
+		pthread_mutex_destroy(&table->forks[i].fork);
+		pthread_mutex_destroy(&table->philos[i].time);
 		i++;
 	}
-	return (res * sign);
+	//pthread_mutex_destroy(&table->info);
+	//pthread_mutex_destroy(&table->write);
+	//pthread_mutex_destroy(&table->replete);
+	free(table->philos);
+	free(table->forks);
+	free(table);
 }

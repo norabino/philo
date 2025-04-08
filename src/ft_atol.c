@@ -1,22 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:07:33 by norabino         ###   ########.fr       */
+/*   Created: 2025/04/03 14:21:33 by norabino          #+#    #+#             */
+/*   Updated: 2025/04/08 15:38:43 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	*ft_routine(void *data_philo)
+int	ft_isdigit(char c)
 {
-	t_philo	*philo;
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
 
-	philo = (t_philo *)data_philo;
-	printf("routine for philo %d\n", philo->id);
-	return (philo);
+long	ft_atol(char *str)
+{
+	long	res;
+	int		sign;
+	int		i;
+
+	res = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	if (!ft_isdigit(str[i]))
+		return (0);
+	while (ft_isdigit(str[i]))
+	{
+		res = res * 10 + str[i] - '0';
+		i++;
+	}
+	return (sign * res);
 }

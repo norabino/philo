@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:21:08 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/03 14:31:46 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:36:49 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	main(int ac, char **av)
 {
-	if (ac != 5 && ac != 6)
-	{
-		printf("Error: Wrong number of arguments\n");
+	t_table	*table;
+
+	if (!ft_parse(ac, av))
+		return (printf("Try : ./philo [ nb_philo ] [ die ] [ eat ] [ sleep ] ([ max_meals ])\n"), 1);
+	table = ft_init(av);
+	if (!table)
 		return (1);
-	}
-	ft_init(av);
+	ft_end_simulation(table);
 	return (0);
 }

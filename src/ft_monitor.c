@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_routine.c                                       :+:      :+:    :+:   */
+/*   ft_monitor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:07:33 by norabino         ###   ########.fr       */
+/*   Created: 2025/04/08 15:21:30 by norabino          #+#    #+#             */
+/*   Updated: 2025/04/08 16:07:11 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	*ft_routine(void *data_philo)
+void	*ft_monitor(void	*data_table)
 {
-	t_philo	*philo;
+	t_table	*table;
 
-	philo = (t_philo *)data_philo;
-	printf("routine for philo %d\n", philo->id);
-	return (philo);
+	table = (t_table *)data_table;
+	printf("monitor\n");
+	return (table);
 }
