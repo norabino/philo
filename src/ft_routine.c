@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:07:33 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:19:22 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@ void	*ft_routine(void *data_philo)
 	t_philo	*philo;
 
 	philo = (t_philo *)data_philo;
-	printf("routine for philo %d\n", philo->id);
 	return (philo);
 }

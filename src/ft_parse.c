@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:26:38 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:36:06 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:51:39 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ int	ft_parse(int ac, char **av)
 			return (printf("Argument(s) not valid.\n"), 0);
 		i++;
 	}
-	return (1);	
+	return (1);
 }
