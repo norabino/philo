@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:26:38 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 18:51:39 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/20 21:37:21 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,9 @@ int	ft_parse(int ac, char **av)
 	long	nb;
 
 	if (ac < 5)
-	{
-		printf("Error: Too few arguments.\n");
-		return (0);
-	}
+		return (printf("Error: Too few arguments.\n"), 0);
 	if (ac > 6)
-	{
-		printf("Error: Too much arguments.\n");
-		return (0);
-	}
+		return (printf("Error: Too much arguments.\n"), 0);
 	i = 1;
 	while (av[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/16 13:20:40 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/20 22:07:19 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,51 @@ int	ft_eat(t_philo *philo)
 	if (philo->table->how_many_meals == 1)
 	{
 		pthread_mutex_lock(&philo->left_fork->fork);
-		ft_wwrite(philo, LEFT_FORK);
+		ft_write(philo, LEFT_FORK);
 		ft_usleep(philo->table->time_to_die);
 		ft_write(philo, DIE);
 		pthread_mutex_unlock(&philo->left_fork->fork);
 		return (1);
 	}
-	pthread_mutex_lock()
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->right_fork->fork);
+		ft_write(philo, RIGHT_FORK);
+		pthread_mutex_lock(&philo->left_fork->fork);
+		ft_write(philo, LEFT_FORK);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->left_fork->fork);
+		ft_write(philo, LEFT_FORK);
+		pthread_mutex_lock(&philo->right_fork->fork);
+		ft_write(philo, RIGHT_FORK);
+	}
+	ft_secure_eating(philo);
+	return (0);
+}
+
+int	ft_secure_eating(t_philo *philo)
+{
+	ft_write(philo, EAT);
+	pthread_mutex_lock(&philo->time);
+	philo->last_meal = ft_gettimeofday() - philo->table->start_simulation;
+	pthread_mutex_unlock(&philo->time);
+	//ft_usleep_max_meals(philo->table->time_to_eat, philo, max_meals, flg);
+	//(*max_meals)++;
+	pthread_mutex_unlock(&philo->right_fork->fork);
+	pthread_mutex_unlock(&philo->left_fork->fork);
+	return (0);
+}
+
+
+void	ft_sleep(t_philo *philo)
+{
+	ft_write(philo, SLEEP);
+	ft_usleep(philo->table->time_to_sleep);
+}
+
+void	ft_think(t_philo *philo)
+{
+	ft_write(philo, THINK);
 }
