@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:19 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 16:22:40 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:11:41 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_table
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
-	int			how_many_eat;
+	int			how_many_meals;
 	t_philo		*philos;
 	t_fork		*forks;
 	pthread_t	monitor;

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:14:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/08 18:52:14 by norabino         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:12:11 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_init_table(t_table *table, char **av)
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
 	if (av[5])
-		table->how_many_eat = ft_atol(av[5]);
+		table->how_many_meals = ft_atol(av[5]);
 	else
-		table->how_many_eat = -1;
+		table->how_many_meals = -1;
 	pthread_create(&table->monitor, NULL, ft_monitor, table);
 	table->philos = malloc(table->nb_philo * sizeof(t_philo));
 	table->forks = malloc(table->nb_philo * sizeof(t_fork));
@@ -29,7 +29,7 @@ void	ft_init_table(t_table *table, char **av)
 
 int	ft_init_forks(t_table *table)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (i < table->nb_philo)
