@@ -1,7 +1,7 @@
-SRCS = src/main.c src/ft_init.c src/ft_atol.c src/ft_routine.c src/ft_monitor.c src/ft_parse.c src/ft_end_simulation.c src/ft_philo_states.c
+SRCS = src/main.c src/ft_init.c src/ft_atol.c src/ft_routine.c src/ft_monitor.c src/ft_parse.c src/ft_checks.c src/ft_utils.c src/ft_time.c 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

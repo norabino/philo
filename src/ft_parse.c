@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:26:38 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/20 21:37:21 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 10:13:43 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	ft_iszero(char *str)
 int	ft_parse(int ac, char **av)
 {
 	int		i;
+	int		j;
 	long	nb;
 
 	if (ac < 5)
@@ -43,10 +44,14 @@ int	ft_parse(int ac, char **av)
 	i = 1;
 	while (av[i])
 	{
+		j = 0;
+		while (av[i][j])
+			if (!ft_isdigit(av[i][j++]))
+				return (printf("Argument(s) not valid.\n"), 0);
 		nb = ft_atol(av[i]);
 		if ((nb > 2147483647 || nb < 0)
-			|| (!nb && !ft_iszero(av[i])))
-			return (printf("Argument(s) not valid.\n"), 0);
+			|| (!nb && ft_iszero(av[i])))
+			return (printf("Numbers should be between 0 and INT_MAX.\n"), 0);
 		i++;
 	}
 	return (1);

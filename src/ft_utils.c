@@ -6,35 +6,23 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:20:16 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/20 21:59:38 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 12:31:19 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-int	ft_check_death(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->table->info);
-	if (philo->table->simulation_ended == 1)
-	{
-		pthread_mutex_unlock(&philo->table->info);
-		return (1);
-	}
-	pthread_mutex_unlock(&philo->table->info);
-	return (0);
-}
 
 void ft_write(t_philo *philo, t_actions action)
 {
 	long	timestamp;
 
 	pthread_mutex_lock(&philo->table->write);
-	timestamp = ft_gettimeofday() - philo->table->start_simulation;
-	if (!ft_check_death(philo))
+	timestamp = gettimeofday_ms() - philo->table->time_start;
+	if (!ft_simulation_active(philo->table))
 	{
-		if (action == LEFT_FORK)
+		if (action == L_FORK)
 			printf("%ld %d has taken a fork\n", timestamp, philo->id);
-		else if (action == RIGHT_FORK)
+		else if (action == R_FORK)
 			printf("%ld %d has taken a fork\n", timestamp, philo->id);
 		else if (action == EAT)
 			printf("%ld %d is eating\n", timestamp, philo->id);
@@ -48,19 +36,14 @@ void ft_write(t_philo *philo, t_actions action)
 	pthread_mutex_unlock(&philo->table->write);
 }
 
-long	ft_get_current_timestamp(void)
+void	ft_take_L_Fork(t_philo *philo)
 {
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+	pthread_mutex_lock(&philo->left_fork->fork);
+	ft_write(philo, L_FORK);
 }
 
-void	ft_usleep(long ms)
+void	ft_take_R_Fork(t_philo *philo)
 {
-	long		start_time;
-
-	start_time = ft_get_current_timestamp();
-	while (ft_get_current_timestamp() - start_time < ms)
-		usleep(50);
+	pthread_mutex_lock(&philo->right_fork->fork);
+	ft_write(philo, R_FORK);
 }

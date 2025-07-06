@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:21:30 by norabino          #+#    #+#             */
-/*   Updated: 2025/04/20 21:32:03 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 12:04:31 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,28 @@ void	*ft_monitor(void *data)
 		i = 0;
 		while (i < philo->table->nb_philo)
 		{
-			if (ft_check_last_meal(&philo[i]))
+			if (!ft_check_starvation(&philo[i]))
 			{
 				ft_philo_died(table, philo[i].id);
 				return (NULL);
 			}
 			i++;
 		}
-		if (table->how_many_meals != -1)
-		{
-			if (ft_check_replete(philo) == 1)
-				return (NULL);
-		}
+		if (ft_check_all_philos_full(philo) == 1)
+			return (NULL);
 		usleep(50);
 	}
 	return (NULL);
+}
+
+void	ft_philo_died(t_table *table, int id)
+{
+	pthread_mutex_lock(&table->simulation_state);
+	table->finished = 1;
+	pthread_mutex_unlock(&table->simulation_state);
+	pthread_mutex_lock(&table->write);
+	printf("%ld %d died\n",
+		gettimeofday_ms() - table->time_start,
+		id);
+	pthread_mutex_unlock(&table->write);
 }
