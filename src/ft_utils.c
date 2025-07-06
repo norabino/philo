@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:20:16 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:50:15 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:32:33 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,18 @@ void ft_write(t_philo *philo, t_actions action)
 
 void	ft_take_L_Fork(t_philo *philo)
 {
+	if (!ft_simulation_active(philo->table))
+		return ;
 	pthread_mutex_lock(&philo->left_fork->fork);
-	ft_write(philo, L_FORK);
+	if (ft_simulation_active(philo->table))
+		ft_write(philo, L_FORK);
 }
 
 void	ft_take_R_Fork(t_philo *philo)
 {
+	if (!ft_simulation_active(philo->table))
+		return ;
 	pthread_mutex_lock(&philo->right_fork->fork);
-	ft_write(philo, R_FORK);
+	if (ft_simulation_active(philo->table))
+		ft_write(philo, R_FORK);
 }
