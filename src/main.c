@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:21:08 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 16:27:02 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 17:01:35 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,14 @@ void	ft_end_simulation(t_table *table)
 
 int	main(int ac, char **av)
 {
-	t_table *table;
+	t_table	*table;
 
 	if (!ft_parse(ac, av))
-		return (printf("Try : ./philo [ nb_philo ] [ die ] [ eat ] [ sleep ] ([ max_meals ])\n"), 1);
+	{
+		printf("Try : ./philo [ nb_philo ] [ die ]");
+		printf(" [ eat ] [ sleep ] ([ max_meals ])\n");
+		return (1);
+	}
 	table = ft_init(av);
 	if (!table)
 		return (1);

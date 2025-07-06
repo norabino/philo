@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:19 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 15:20:32 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:58:17 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef enum e_actions
 	DIE
 }	t_actions;
 
-
 // FUNCTIONS : 
 
 // Init / Parse
@@ -94,8 +93,8 @@ int		ft_simulation_active(t_table *table);
 
 // Utils
 void	ft_write(t_philo *philo, t_actions action);
-void	ft_take_L_Fork(t_philo *philo);
-void	ft_take_R_Fork(t_philo *philo);
+void	ft_take_left_fork(t_philo *philo);
+void	ft_take_right_fork(t_philo *philo);
 
 // Atol
 long	ft_atol(char *str);

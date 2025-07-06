@@ -6,13 +6,13 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:20:16 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 16:32:33 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:58:28 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void ft_write(t_philo *philo, t_actions action)
+void	ft_write(t_philo *philo, t_actions action)
 {
 	long	timestamp;
 
@@ -36,7 +36,7 @@ void ft_write(t_philo *philo, t_actions action)
 	pthread_mutex_unlock(&philo->table->write);
 }
 
-void	ft_take_L_Fork(t_philo *philo)
+void	ft_take_left_fork(t_philo *philo)
 {
 	if (!ft_simulation_active(philo->table))
 		return ;
@@ -45,7 +45,7 @@ void	ft_take_L_Fork(t_philo *philo)
 		ft_write(philo, L_FORK);
 }
 
-void	ft_take_R_Fork(t_philo *philo)
+void	ft_take_right_fork(t_philo *philo)
 {
 	if (!ft_simulation_active(philo->table))
 		return ;
