@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 15:21:30 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:04:31 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:11:56 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*ft_monitor(void *data)
 	philo = table->philos;
 	while (1)
 	{
+		if (ft_check_all_philos_full(philo))
+			return (NULL);
 		i = 0;
 		while (i < philo->table->nb_philo)
 		{
@@ -32,7 +34,7 @@ void	*ft_monitor(void *data)
 			}
 			i++;
 		}
-		if (ft_check_all_philos_full(philo) == 1)
+		if (ft_check_all_philos_full(philo))
 			return (NULL);
 		usleep(50);
 	}

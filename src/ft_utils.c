@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:20:16 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:31:19 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 12:50:15 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_write(t_philo *philo, t_actions action)
 
 	pthread_mutex_lock(&philo->table->write);
 	timestamp = gettimeofday_ms() - philo->table->time_start;
-	if (!ft_simulation_active(philo->table))
+	if (ft_simulation_active(philo->table))
 	{
 		if (action == L_FORK)
 			printf("%ld %d has taken a fork\n", timestamp, philo->id);

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:19 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:32:16 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 15:20:32 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	t_fork				*right_fork;
 	t_table				*table;
 	long				last_meal;
+	int					finished_eating;
 }	t_philo;
 
 typedef struct s_table
@@ -79,7 +80,7 @@ int		ft_parse(int ac, char **av);
 void	*ft_routine(void *data_philo);
 void	ft_think(t_philo *philo);
 int		ft_eat(t_philo *philo, int *meals_count);
-void	ft_secure_eating(t_philo *philo, int *meals_count);
+int		ft_secure_eating(t_philo *philo, int *meals_count);
 void	ft_sleep(t_philo *philo);
 
 // Monitor

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:32:39 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:23:39 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_routine(void *data_philo)
 	t_table	*table;
 	int		meals_count;
 
-	meals_count = 1;
+	meals_count = 0;
 	philo = (t_philo *)data_philo;
 	table = philo->table;
 	if (table->how_many_meals == 0)
@@ -26,11 +26,10 @@ void	*ft_routine(void *data_philo)
 	while (ft_simulation_active(philo->table))
 	{
 		ft_think(philo);
-		if (!ft_eat(philo, &meals_count))
+		if (!ft_eat(philo, &meals_count) || philo->finished_eating)
 			break ;
 		ft_sleep(philo);
 	}
-	ft_all_meals_taken(philo);
 	return (NULL);
 }
 
@@ -54,21 +53,28 @@ int	ft_eat(t_philo *philo, int *meals_count)
 		ft_take_L_Fork(philo);
 		ft_take_R_Fork(philo);
 	}
-	ft_secure_eating(philo, meals_count);
-	return (1);
+	ft_write(philo, EAT);
+	return (ft_secure_eating(philo, meals_count));
 }
 
-void	ft_secure_eating(t_philo *philo, int *meals_count)
+int	ft_secure_eating(t_philo *philo, int *meals_count)
 {
-	ft_write(philo, EAT);
 	pthread_mutex_lock(&philo->time);
 	philo->last_meal = gettimeofday_ms() - philo->table->time_start;
 	pthread_mutex_unlock(&philo->time);
 	ft_usleep(philo->table->time_to_eat);
-	if (*(meals_count)++ == philo->table->how_many_meals)
+	(*meals_count)++;
+	if (philo->table->how_many_meals > 0 && *meals_count >= philo->table->how_many_meals)
+	{
+		philo->finished_eating = 1;
 		ft_all_meals_taken(philo);
-	pthread_mutex_unlock(&philo->right_fork->fork);
-	pthread_mutex_unlock(&philo->left_fork->fork);
+	}
+	if (ft_simulation_active(philo->table))
+	{
+		pthread_mutex_unlock(&philo->right_fork->fork);
+		pthread_mutex_unlock(&philo->left_fork->fork);
+	}
+	return (1);
 }
 
 

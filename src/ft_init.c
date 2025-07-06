@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 14:14:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 12:04:11 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/06 15:41:05 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	ft_init_table(t_table *table, char **av)
 	table->time_start = gettimeofday_ms();
 	table->forks = malloc(table->nb_philo * sizeof(t_fork));
 	table->philos = malloc(table->nb_philo * sizeof(t_philo));
+	table->monitor = 0;
 	pthread_mutex_init(&table->simulation_state, NULL);
 	pthread_mutex_init(&table->write, NULL);
 	pthread_mutex_init(&table->replete, NULL);
@@ -63,6 +64,8 @@ int	ft_init_philos(t_table *table)
 			philo->right_fork = &table->forks[0];
 		philo->table = table;
 		philo->last_meal = 0;
+		philo->finished_eating = 0;
+		philo->id_thread = 0;
 		pthread_mutex_init(&philo->time, NULL);
 		pthread_create(&philo->id_thread, NULL, ft_routine, philo);
 		i++;
@@ -76,11 +79,17 @@ t_table	*ft_init(char **av)
 
 	table = malloc(sizeof(t_table));
 	if (!table)
-		return (table);
+		return (NULL);
 	ft_init_table(table, av);
-	if (!ft_init_forks(table) || !ft_init_philos(table))
-		return (printf("Malloc error"), NULL);
+	if (!table->forks || !table->philos)
+	{
+		free(table->forks);
+		free(table->philos);
+		free(table);
+		return (NULL);
+	}
+	ft_init_forks(table);
+	ft_init_philos(table);
 	pthread_create(&table->monitor, NULL, ft_monitor, table);
-	//printf("nbphilo = %d\ntime to die = %d\ntime to eat = %d\ntime to sleep = %d\nhowmanyeat = %d\n\n\n", table->nb_philo, table->time_to_die, table->time_to_eat, table->time_to_sleep, table->how_many_meals);
 	return (table);
 }
