@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 16:59:19 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/08 10:21:22 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_eat(t_philo *philo, int *meals_count)
 	if (philo->table->nb_philo == 1)
 	{
 		ft_take_left_fork(philo);
-		return (ft_usleep(philo->table->time_to_die), ft_write(philo, DIE),
+		return (ft_usleep(philo->table->time_to_die),
 			pthread_mutex_unlock(&philo->left_fork->fork), 0);
 	}
 	if (philo->id % 2 == 0)
