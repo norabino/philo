@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:51:19 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 16:58:17 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:46:25 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int		ft_isdigit(char c);
 
 // Time
 long	gettimeofday_ms(void);
-void	ft_usleep(long ms);
+void	ft_usleep(long ms, t_table *table);
 
 #endif

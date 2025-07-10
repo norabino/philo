@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:21:08 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 17:01:35 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:21:05 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	main(int ac, char **av)
 
 	if (!ft_parse(ac, av))
 	{
-		printf("Try : ./philo [ nb_philo ] [ die ]");
-		printf(" [ eat ] [ sleep ] ([ max_meals ])\n");
+		write(2, "Try : ./philo [ nb_philo ] [ die ]", 35);
+		write(2, " [ eat ] [ sleep ] ([ max_meals ])\n", 35);
 		return (1);
 	}
 	table = ft_init(av);

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/08 10:21:22 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:47:03 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_eat(t_philo *philo, int *meals_count)
 	if (philo->table->nb_philo == 1)
 	{
 		ft_take_left_fork(philo);
-		return (ft_usleep(philo->table->time_to_die),
+		return (ft_usleep(philo->table->time_to_die, philo->table),
 			pthread_mutex_unlock(&philo->left_fork->fork), 0);
 	}
 	if (philo->id % 2 == 0)
@@ -67,7 +67,7 @@ int	ft_secure_eating(t_philo *philo, int *meals_count)
 	pthread_mutex_lock(&philo->time);
 	philo->last_meal = gettimeofday_ms() - philo->table->time_start;
 	pthread_mutex_unlock(&philo->time);
-	ft_usleep(philo->table->time_to_eat);
+	ft_usleep(philo->table->time_to_eat, philo->table);
 	(*meals_count)++;
 	if (philo->table->how_many_meals > 0
 		&& *meals_count >= philo->table->how_many_meals)
@@ -83,7 +83,7 @@ int	ft_secure_eating(t_philo *philo, int *meals_count)
 void	ft_sleep(t_philo *philo)
 {
 	ft_write(philo, SLEEP);
-	ft_usleep(philo->table->time_to_sleep);
+	ft_usleep(philo->table->time_to_sleep, philo->table);
 }
 
 void	ft_think(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 12:09:50 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 16:59:45 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:49:47 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ long	gettimeofday_ms(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	ft_usleep(long ms)
+void	ft_usleep(long ms, t_table *table)
 {
 	long		start_time;
 
 	start_time = gettimeofday_ms();
 	while (gettimeofday_ms() - start_time < ms)
+	{
+		if (table->finished)
+			break ;
 		usleep(50);
+	}
 }
