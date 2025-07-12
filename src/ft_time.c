@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 12:09:50 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/10 15:49:47 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/12 02:37:20 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ void	ft_usleep(long ms, t_table *table)
 	start_time = gettimeofday_ms();
 	while (gettimeofday_ms() - start_time < ms)
 	{
+		pthread_mutex_lock(&table->simulation_state);
 		if (table->finished)
+		{
+			pthread_mutex_unlock(&table->simulation_state);
 			break ;
+		}
+		pthread_mutex_unlock(&table->simulation_state);
 		usleep(50);
 	}
 }

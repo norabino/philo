@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/10 15:47:03 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/12 03:04:36 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ int	ft_secure_eating(t_philo *philo, int *meals_count)
 {
 	pthread_mutex_lock(&philo->time);
 	philo->last_meal = gettimeofday_ms() - philo->table->time_start;
-	pthread_mutex_unlock(&philo->time);
-	ft_usleep(philo->table->time_to_eat, philo->table);
 	(*meals_count)++;
 	if (philo->table->how_many_meals > 0
 		&& *meals_count >= philo->table->how_many_meals)
 	{
 		philo->finished_eating = 1;
+		pthread_mutex_unlock(&philo->time);
 		ft_all_meals_taken(philo);
 	}
+	else
+		pthread_mutex_unlock(&philo->time);
+	ft_usleep(philo->table->time_to_eat, philo->table);
 	pthread_mutex_unlock(&philo->right_fork->fork);
 	pthread_mutex_unlock(&philo->left_fork->fork);
 	return (1);

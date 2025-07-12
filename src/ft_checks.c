@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 16:16:20 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/06 15:07:23 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/12 02:54:07 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	ft_simulation_active(t_table *table)
 
 int	ft_check_starvation(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->time);
 	if (!ft_simulation_active(philo->table) || ft_check_all_philos_full(philo)
 		|| philo->finished_eating)
-		return (1);
-	pthread_mutex_lock(&philo->time);
+		return (pthread_mutex_unlock(&philo->time), 1);
 	if (gettimeofday_ms() - philo->table->time_start
 		- philo->last_meal > philo->table->time_to_die)
 		return (pthread_mutex_unlock(&philo->time), 0);
