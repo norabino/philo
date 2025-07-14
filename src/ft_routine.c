@@ -6,7 +6,7 @@
 /*   By: norabino <norabino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:00:02 by norabino          #+#    #+#             */
-/*   Updated: 2025/07/12 03:04:36 by norabino         ###   ########.fr       */
+/*   Updated: 2025/07/14 10:16:14 by norabino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	*ft_routine(void *data_philo)
 	table = philo->table;
 	if (table->how_many_meals == 0)
 		return (ft_all_meals_taken(philo), NULL);
+	if (philo->id % 2 != 0)
+		ft_usleep(10, table);
 	while (ft_simulation_active(philo->table))
 	{
 		ft_think(philo);
